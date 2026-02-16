@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Ajouter TNDS à MetaMask</title>
+</head>
+
+<body style="text-align:center; margin-top:100px; font-family:Arial;">
+
+  <h2>Ajouter TNDS à MetaMask</h2>
+
+  <button onclick="addToken()" style="padding:15px 30px; font-size:18px;">
+    Ajouter le Token TNDS
+  </button>
+
+  <script>
+    async function addToken() {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          const wasAdded = await ethereum.request({
+            method: 'wallet_watchAsset',
+            params: {
+              type: 'ERC20',
+              options: {
+                address: '0x6ae8193d14fb289E43AD1238aadEB1E537EdCa6B',
+                symbol: 'TNDS',
+                decimals: 18,
+                image: 'https://raw.githubusercontent.com/fotsoromevrard-art/tnds-logo/main/logo.png',
+              },
+            },
+          });
+
+          if (wasAdded) {
+            alert('TNDS ajouté avec succès !');
+          } else {
+            alert('Ajout annulé.');
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Erreur : ' + error.message);
+        }
+      } else {
+        alert("MetaMask non détecté. Installez MetaMask pour continuer.");
+      }
+    }
+  </script>
+
+</body>
+</html>
